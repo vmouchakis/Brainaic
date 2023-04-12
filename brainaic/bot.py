@@ -44,7 +44,7 @@ class Bot():
 
     def get_response(self, prompt: str):
         db = self.index.similarity_search(prompt)
-        response = self.chain({"input_documents": db, "question": prompt}, return_only_outputs=True)
-        return response
+        response = self.chain({"input_documents": db, "question": prompt}, return_only_outputs=False)
+        return response["output_text"]
 
     
