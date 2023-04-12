@@ -40,3 +40,7 @@ print(ans)
 # Vasilis is 25 years old.
 ```
 
+## Run tests:
+```sh
+python -m pytest tests -W ignore::DeprecationWarning
+```
