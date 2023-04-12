@@ -1,6 +1,6 @@
 # BrainAIc
 <p align="center">
-    <img src="./images/logo.png" alt="BrainAIc" width="70%">
+    <img src="./images/logo.png" alt="BrainAIc" width="50%">
 
 </p>
 <p align="center">
