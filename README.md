@@ -4,13 +4,13 @@
 
 </p>
 <p align="center">
-    <em>BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your documents.
+    <em>BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your personal documents.
 </em>
 </p>
 
 
 You want to use OpenAi's pretrained models to query your files? Look no further.
-BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your documents.
+BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your personal documents.
 
 
 ## Steps to use the bot
@@ -20,7 +20,7 @@ BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can g
 export OPENAI_API_KEY="..."
 ```
 #### or inside your python script:
-```sh
+```python
 import os
 os.environ["OPENAI_API_KEY"] = "..."
 ```
@@ -32,7 +32,7 @@ pip install -r requirements.txt
 Now you are ready to use the Bot.
 
 Example:
-```sh
+```python
 from brainaic.bot import Bot
 
 # set your OpenAI API key
