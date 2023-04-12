@@ -1,4 +1,13 @@
 # BrainAIc
+<p align="center">
+    <img src="./images/logo.png" alt="BrainAIc" width="70%">
+
+</p>
+<p align="center">
+    <em>BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your documents.
+</em>
+</p>
+
 
 You want to use OpenAi's pretrained models to query your files? Look no further.
 BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your documents.
