@@ -1,22 +1,12 @@
 from langchain.chat_models import ChatOpenAI
+from langchain.llms import LlamaCpp
 from langchain.document_loaders import DirectoryLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.embeddings import LlamaCppEmbeddings
 from langchain.chains.question_answering import load_qa_chain
 from langchain.vectorstores import Chroma, FAISS
 
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
-from langchain import PromptTemplate, LLMChain
-from langchain.prompts.chat import (
-    ChatPromptTemplate,
-    SystemMessagePromptTemplate,
-    AIMessagePromptTemplate,
-    HumanMessagePromptTemplate,
-)
-from langchain.schema import (
-    AIMessage,
-    HumanMessage,
-    SystemMessage
-)
 
 
 class Bot():

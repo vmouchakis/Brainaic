@@ -56,3 +56,4 @@ python -m pytest tests -W ignore::DeprecationWarning
 
 ## TODO:
 - [ ] Add support for other models
+    https://github.com/ChristopherKing42/llama/tree/patch-1
