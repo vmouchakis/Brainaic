@@ -53,3 +53,6 @@ print(ans)
 ```sh
 python -m pytest tests -W ignore::DeprecationWarning
 ```
+
+## TODO:
+- [ ] Add support for other models
