@@ -4,16 +4,19 @@
 
 </p>
 <p align="center">
-    <em>BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your personal documents.
-</em>
+    <small>Image generated with DALL-E.<br></small>
+    <em>BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your personal documents.</em>
 </p>
 
 
 You want to use OpenAi's pretrained models to query your files? Look no further.
 BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your personal documents.
 
+### Models supported:
+- `gpt-3.5-turbo`
+- `llama 7b`
 
-## Steps to use the bot
+## Set up for `gpt` model
 - Save your OpenAI API Key locally:
 #### write in your terminal:
 ```sh
@@ -24,6 +27,10 @@ export OPENAI_API_KEY="..."
 import os
 os.environ["OPENAI_API_KEY"] = "..."
 ```
+## Set up for `llama` model
+- Make sure you are following all [instructions](https://github.com/ggerganov/llama.cpp) to install all necessary model files.
+
+## Set up environment
 - Install dependencies inside your `virtual environment`:
 ```sh
 pip install -r requirements.txt
@@ -32,21 +39,8 @@ pip install -r requirements.txt
 Now you are ready to use the Bot.
 
 Example:
-```python
-from brainaic.bot import Bot
-
-# set your OpenAI API key
-os.environ["OPENAI_API_KEY"] = "..."
-
-data_path = "./data"
-# create the bot
-bot = Bot(data_path=data_path)
-
-# get the response to your question
-ans = bot.get_response("How old is Vasilis?")
-
-print(ans)
-# Vasilis is 25 years old.
+```sh
+python -m brainaic.app -d './data' -m 'llama' -p 'how old is Vasilis?'
 ```
 
 ## Run tests:
@@ -56,4 +50,14 @@ python -m pytest tests -W ignore::DeprecationWarning
 
 ## TODO:
 - [ ] Add support for other models
-    https://github.com/ChristopherKing42/llama/tree/patch-1
+    https://github.com/ChristopherKing42/llama/tree/patch-1 - LLAMA 7B ADDED
+- [] Add more tasks. Right now only querying over files is supported. Chat-based funcionality using Llama will be added
+- [] Llama model is very slow. Make it faster
+
+
+## Problems
+- [] Llama model is useless when max_tokens are exceeded.
+
+
+#### Usefull links
+https://github.com/hwchase17/langchain/issues/2784

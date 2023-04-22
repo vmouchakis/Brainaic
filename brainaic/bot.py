@@ -5,22 +5,37 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.embeddings import LlamaCppEmbeddings
 from langchain.chains.question_answering import load_qa_chain
 from langchain.vectorstores import Chroma, FAISS
+from brainaic.config import *
 
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
 
 
 class Bot():
-    def __init__(self, data_path: str, temperature: int = 0):
+    def __init__(self, data_path: str, model_name: str = "gpt", temperature: int = 0):
+        self.model_name = model_name
         self.temperature = temperature
-        self.embeddings = OpenAIEmbeddings()
+        self.load_embeddings()
         self.load_model()
         self.load_loader(data_path=data_path)
         self.load_index()
-        self.chain = load_qa_chain(self.model)
+        self.chain = load_qa_chain(self.model, chain_type="map_rerank")
 
-    def load_model(self, model_name: str = ""):
-        # load gpt-3.5-turbo model
-        self.model = ChatOpenAI(temperature=self.temperature)
+    def load_model(self):
+        if self.model_name == "gpt":
+            # load gpt-3.5-turbo model
+            self.model = ChatOpenAI(temperature=self.temperature)
+        elif self.model_name == "llama":
+            self.model = LlamaCpp(model_path=LLAMA_MODEL_PATH, n_ctx=2048)
+        else: 
+            exit(0)
+
+    def load_embeddings(self):
+        if self.model_name == "gpt":
+            self.embeddings = OpenAIEmbeddings()
+        elif self.model_name == "llama":
+            self.embeddings = LlamaCppEmbeddings(model_path=LLAMA_MODEL_PATH)
+        else:
+            exit(0)
 
     def load_loader(self, data_path: str):
         self.loader = DirectoryLoader(data_path)

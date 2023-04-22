@@ -1,10 +1,12 @@
 from brainaic.bot import Bot
+from brainaic.utils import parse_args
 
 
 def main():
-    data_path = "./data"
-    bot = Bot(data_path=data_path)
-    ans = bot.get_response("How old is Vasilis?")
+    args = parse_args()
+
+    bot = Bot(data_path=args.data_path, model_name=args.model_type)
+    ans = bot.get_response(args.prompt)
     print(ans)
 
 
