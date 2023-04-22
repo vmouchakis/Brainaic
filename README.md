@@ -40,7 +40,7 @@ Now you are ready to use the Bot.
 
 Example:
 ```sh
-python -m brainaic.app -d './data' -m 'llama' -p 'how old is Vasilis?'
+python -m brainaic.app --data_path './data' --model_type 'llama' --prompt 'how old is Vasilis?'
 ```
 
 ## Run tests:
