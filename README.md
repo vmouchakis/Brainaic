@@ -60,6 +60,7 @@ python -m pytest tests -W ignore::DeprecationWarning
 
 ## Todo
 - [] Add memory
+- [] Fix Llama
 
 
 #### Usefull links
