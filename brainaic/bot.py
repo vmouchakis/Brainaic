@@ -5,23 +5,29 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.embeddings import LlamaCppEmbeddings
 from langchain.chains.question_answering import load_qa_chain
 from langchain.vectorstores import Chroma, FAISS
-from langchain.memory import ConversationBufferMemory
+from brainaic.memory import ConversationBufferMem
 from brainaic.config import *
+from brainaic.prompt import PROMPT
+from langchain.chains.conversational_retrieval.prompts import QA_PROMPT
 
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
+
 
 
 class Bot():
     def __init__(self, data_path: str, model_name: str = "gpt", temperature: int = 0):
         self.model_name = model_name
         self.temperature = temperature
+        self.prompt = PROMPT
         self.load_embeddings()
         self.load_model()
         self.load_loader(data_path=data_path)
         self.load_index()
-        self.chain = load_qa_chain(model=self.model,
-                                   chain_type="map_rerank",
-                                   memory=ConversationBufferMemory)
+        self.chain = load_qa_chain(self.model,
+                                   chain_type="stuff",
+                                   prompt=QA_PROMPT,
+                                   verbose=False,
+                                   memory=ConversationBufferMem().memory)
 
     def load_model(self):
         if self.model_name == "gpt":
@@ -52,7 +58,7 @@ class Bot():
 
     def get_response(self, prompt: str):
         db = self.index.similarity_search(prompt)
-        response = self.chain({"input_documents": db, "question": prompt}, return_only_outputs=False)
+        response = self.chain.run(input_documents=db, question=prompt)
         return response["output_text"]
 
     
