@@ -59,7 +59,8 @@ python -m pytest tests -W ignore::DeprecationWarning
 - [] Llama model is useless when max_tokens are exceeded.
 
 ## Todo
-- [] Add memory
+- [] Add memory - FIX
+- [] Add prompts - FIX
 - [] Fix Llama
 
 

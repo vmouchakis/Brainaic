@@ -1,5 +1,6 @@
 import argparse
 
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--data_path", required=True, type=str, help="data path")
