@@ -5,6 +5,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.embeddings import LlamaCppEmbeddings
 from langchain.chains.question_answering import load_qa_chain
 from langchain.vectorstores import Chroma, FAISS
+from langchain.memory import ConversationBufferMemory
 from brainaic.config import *
 
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
@@ -18,7 +19,9 @@ class Bot():
         self.load_model()
         self.load_loader(data_path=data_path)
         self.load_index()
-        self.chain = load_qa_chain(self.model, chain_type="map_rerank")
+        self.chain = load_qa_chain(model=self.model,
+                                   chain_type="map_rerank",
+                                   memory=ConversationBufferMemory)
 
     def load_model(self):
         if self.model_name == "gpt":
