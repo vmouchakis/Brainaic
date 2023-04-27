@@ -51,17 +51,14 @@ python -m pytest tests -W ignore::DeprecationWarning
 ## TODO:
 - [ ] Add support for other models
     https://github.com/ChristopherKing42/llama/tree/patch-1 - LLAMA 7B ADDED
-- [] Add more tasks. Right now only querying over files is supported. Chat-based funcionality using Llama will be added
-- [] Llama model is very slow. Make it faster
+- [ ] Add more tasks. Right now only querying over files is supported. Chat-based funcionality using Llama will be added
+- [ ] Llama model is very slow. Make it faster
+- [ ] Add memory - FIX
+- [ ] Add prompts - FIX
 
 
 ## Problems
-- [] Llama model is useless when max_tokens are exceeded.
-
-## Todo
-- [] Add memory - FIX
-- [] Add prompts - FIX
-- [] Fix Llama
+- [ ] Llama model is useless when max_tokens are exceeded.
 
 
 #### Usefull links
