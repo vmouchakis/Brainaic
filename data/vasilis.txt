@@ -1,1 +1,5 @@
-Vasilis is 20 plus 5 years old.
+Vasilis was born in 1997.
+
+He lives in Athens, Greece.
+
+He works as an AI Engineer.

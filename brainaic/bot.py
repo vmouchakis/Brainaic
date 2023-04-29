@@ -26,8 +26,8 @@ class Bot():
         self.chain = load_qa_chain(self.model,
                                    chain_type="stuff",
                                    prompt=QA_PROMPT,
-                                   verbose=False,
-                                   memory=ConversationBufferMem().memory)
+                                   verbose=False,)
+                                #    memory=ConversationBufferMem().memory)
 
     def load_model(self):
         if self.model_name == "gpt":
@@ -59,6 +59,6 @@ class Bot():
     def get_response(self, prompt: str):
         db = self.index.similarity_search(prompt)
         response = self.chain.run(input_documents=db, question=prompt)
-        return response["output_text"]
+        return response
 
     
