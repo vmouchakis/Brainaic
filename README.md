@@ -59,6 +59,7 @@ python -m pytest tests -W ignore::DeprecationWarning
 
 ## Problems
 - [ ] Llama model is useless when max_tokens are exceeded.
+- [ ] Llama model produces nonsense and answers to questions I did not ask, maybe create an issue in langchain repo.
 
 
 #### Usefull links
