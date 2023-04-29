@@ -53,8 +53,8 @@ python -m pytest tests -W ignore::DeprecationWarning
     https://github.com/ChristopherKing42/llama/tree/patch-1 - LLAMA 7B ADDED
 - [ ] Add more tasks. Right now only querying over files is supported. Chat-based funcionality using Llama will be added
 - [ ] Llama model is very slow. Make it faster
-- [ ] Add memory - FIX
-- [ ] Add prompts - FIX
+- [x] Add memory - FIX
+- [x] Add prompts - FIX
 
 
 ## Problems
