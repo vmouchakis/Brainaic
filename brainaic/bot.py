@@ -5,7 +5,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.embeddings import LlamaCppEmbeddings
 from langchain.chains.question_answering import load_qa_chain
 from langchain.vectorstores import Chroma, FAISS
-from brainaic.memory import ConversationBufferMem
+from brainaic.memory import ConversationBufferMem, memory
 from brainaic.config import *
 from brainaic.prompt import PROMPT
 from langchain.chains.conversational_retrieval.prompts import QA_PROMPT
@@ -26,15 +26,15 @@ class Bot():
         self.chain = load_qa_chain(self.model,
                                    chain_type="stuff",
                                    prompt=QA_PROMPT,
-                                   verbose=False,)
-                                #    memory=ConversationBufferMem().memory)
+                                   verbose=False,
+                                   memory=ConversationBufferMem().memory)
 
     def load_model(self):
         if self.model_name == "gpt":
             # load gpt-3.5-turbo model
             self.model = ChatOpenAI(temperature=self.temperature)
         elif self.model_name == "llama":
-            self.model = LlamaCpp(model_path=LLAMA_MODEL_PATH, n_ctx=2048)
+            self.model = LlamaCpp(model_path=LLAMA_MODEL_PATH, n_ctx=2048, verbose=False)
         else: 
             exit(0)
 
