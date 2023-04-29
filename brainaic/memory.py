@@ -3,9 +3,9 @@ from langchain.memory import ConversationBufferMemory, ConversationBufferWindowM
 
 class ConversationBufferMem:
     def __init__(self):
-        self.memory = ConversationBufferMemory(memory_key="history", input_key="question")
+        self.memory = ConversationBufferMemory(input_key="question")
 
 
 class ConversationBufferWindMem:
     def __init__(self):
-        self.memory = ConversationBufferWindowMemory(memory_key="history", input_key="question", k=2)
+        self.memory = ConversationBufferWindowMemory(input_key="question", k=2)

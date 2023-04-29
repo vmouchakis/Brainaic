@@ -11,6 +11,9 @@ from brainaic.config import *
 from brainaic.prompt import prompt
 from langchain.chains.conversational_retrieval.prompts import QA_PROMPT
 
+from langchain.callbacks.base import CallbackManager
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+
 
 
 class Bot():
@@ -20,24 +23,24 @@ class Bot():
                  temperature: int = 0.5):
         self.model_name = model_name
         self.temperature = temperature
-        # self.prompt = PROMPT if self.model_name == "gpt" else QA_PROMPT
-        self.prompt = prompt() if self.model_name=="gpt" else prompt(template="llama")
-        self.embeddings = self.load_embeddings()
+        self.prompt = self.load_prompt()
         self.model = self.load_model()
-        self.load_loader(data_path=data_path)
-        self.load_index()
+        self.embeddings = self.load_embeddings()
+        self.loader = self.load_loader(data_path=data_path)
+        self.index = self.load_index()
         self.chain = load_qa_chain(llm=self.model,
                                    chain_type="stuff",
                                    prompt=self.prompt,
                                    verbose=True,
-                                   memory=ConversationBufferWindMem().memory)
+                                   memory=ConversationBufferMem().memory)
 
     def load_model(self):
         if self.model_name == "gpt":
             # load gpt-3.5-turbo model
             return ChatOpenAI(temperature=self.temperature)
         elif self.model_name == "llama":
-            return LlamaCpp(model_path=LLAMA_MODEL_PATH, n_ctx=2048, verbose=False)
+            callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
+            return LlamaCpp(model_path=LLAMA_MODEL_PATH, n_ctx=2048, callback_manager=callback_manager, verbose=False, f16_kv=True)
         else: 
             exit(0)
 
@@ -49,19 +52,21 @@ class Bot():
         else:
             exit(0)
 
+    def load_prompt(self):
+        if self.model_name=="gpt": return prompt()
+        else: return prompt(template="llama")
+
     def load_loader(self, data_path: str):
-        self.loader = DirectoryLoader(data_path)
-        # print the num of documents in the data directory, just for sanity check
-        # print(len(self.loader.load()))
+        return DirectoryLoader(data_path)
 
     def load_index(self):
-        self.index = FAISS.from_documents(
+        return FAISS.from_documents(
             self.loader.load_and_split(), self.embeddings
         )
 
     def get_response(self, prompt: str):
         db = self.index.similarity_search(prompt)
-        response = self.chain.run(input_documents=db, question=prompt)
+        response = self.chain.run(input_documents=db, question=prompt, return_only_outputs=True)
         return response
 
     
