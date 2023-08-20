@@ -15,6 +15,8 @@ BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can g
 ### Models supported:
 - `gpt-3.5-turbo`
 - `llama 7b`
+- `llama2 7b`
+- `llama2 7b chat`
 
 ## Set up for `gpt` model
 - Save your OpenAI API Key locally:
@@ -29,6 +31,9 @@ os.environ["OPENAI_API_KEY"] = "..."
 ```
 ## Set up for `llama` model
 - Make sure you are following all [instructions](https://github.com/ggerganov/llama.cpp) to install all necessary model files.
+
+## Set up for `llama2` model
+- Make sure you are following [this video](https://www.youtube.com/watch?v=TsVZJbnnaSs) from [Alex Ziskind](https://github.com/alexziskind1) to install all necessary model files.
 
 ## Set up environment
 - Install dependencies inside your `virtual environment`:
