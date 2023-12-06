@@ -14,7 +14,7 @@ BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can g
 
 ### Models supported:
 - `gpt-3.5-turbo`
-- `llama2 7b chat`
+- `llama2 13b chat`
 
 ## Set up for `gpt` model
 - Save your OpenAI API Key locally:

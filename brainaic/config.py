@@ -1,1 +1,1 @@
-LLAMA_MODEL_PATH = "./models/7B/7b-chat-ggml-model-f32_q4_0.bin"
+LLAMA_MODEL_PATH = "./models/llama/13b-chat-ggml-model-f32_q4_0.bin"

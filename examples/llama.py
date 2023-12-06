@@ -19,8 +19,7 @@ llm = LlamaCpp(
 )
 
 prompt = """
-Question: Given that the current year is 2023 and I was born on 1997, how old am I?
-Return only a number.
+Question: A rap battle between Stephen Colbert and John Oliver
 """
 
 llm(prompt)
