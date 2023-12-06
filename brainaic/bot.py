@@ -7,11 +7,11 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
 from langchain.vectorstores import Chroma, FAISS
 from brainaic.memory import ConversationBufferMem, ConversationBufferWindMem
-from brainaic.config import *
+from brainaic.config import LLAMA_MODEL_PATH
 from brainaic.prompt import prompt
 from langchain.chains.conversational_retrieval.prompts import QA_PROMPT
-
-from langchain.callbacks.base import CallbackManager
+# https://plainenglish.io/blog/langchain-streamlit-llama-bringing-conversational-ai-to-your-local-machine
+from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 
@@ -40,7 +40,7 @@ class Bot():
             return ChatOpenAI(temperature=self.temperature)
         elif self.model_name == "llama":
             callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
-            return LlamaCpp(model_path=LLAMA_MODEL_PATH, n_ctx=2048, callback_manager=callback_manager, verbose=False, f16_kv=True)
+            return LlamaCpp(model_path=LLAMA_MODEL_PATH, n_ctx=2048, callback_manager=callback_manager, verbose=True, f16_kv=True)
         else: 
             exit(0)
 

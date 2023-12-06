@@ -14,8 +14,6 @@ BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can g
 
 ### Models supported:
 - `gpt-3.5-turbo`
-- `llama 7b`
-- `llama2 7b`
 - `llama2 7b chat`
 
 ## Set up for `gpt` model
@@ -29,23 +27,25 @@ export OPENAI_API_KEY="..."
 import os
 os.environ["OPENAI_API_KEY"] = "..."
 ```
-## Set up for `llama` model
-- Make sure you are following all [instructions](https://github.com/ggerganov/llama.cpp) to install all necessary model files.
 
 ## Set up for `llama2` model
 - Make sure you are following [this video](https://www.youtube.com/watch?v=TsVZJbnnaSs) from [Alex Ziskind](https://github.com/alexziskind1) to install all necessary model files.
+- Or follow [this](https://medium.com/@auslei/llama-2-for-mac-m1-ed67bbd9a0c2) article.
+
+*Remember to move the models under the `model` directory in this project, see the `config.py` file.*
 
 ## Set up environment
 - Install dependencies inside your `virtual environment`:
 ```sh
 pip install -r requirements.txt
+CMAKE_ARGS="-DLLAMA_METAL=on" FORCE_CMAKE=1 pip install llama-cpp-python
 ```
 
 Now you are ready to use the Bot.
 
 Example:
 ```sh
-python -m brainaic.app --data_path './data' --model_type 'llama' --prompt 'how old is Vasilis?'
+python -m brainaic.app --data_path './data' --model_type 'llama' --prompt 'How old is Vasilis?'
 ```
 
 ## Run tests:
