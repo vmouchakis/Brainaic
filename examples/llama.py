@@ -3,14 +3,14 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.chains import LLMChain
 from langchain.llms import LlamaCpp
 from langchain.prompts import PromptTemplate
-from brainaic.config import LLAMA2_MODEL_PATH
+from brainaic.config import LLAMA_MODEL_PATH
 
 
 
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
 llm = LlamaCpp(
-    model_path=LLAMA2_MODEL_PATH,
+    model_path=LLAMA_MODEL_PATH,
     temperature=0.75,
     max_tokens=2000,
     top_p=1,
