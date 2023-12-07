@@ -13,6 +13,7 @@ from langchain.chains.conversational_retrieval.prompts import QA_PROMPT
 # https://plainenglish.io/blog/langchain-streamlit-llama-bringing-conversational-ai-to-your-local-machine
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.chains import LLMChain
 
 
 
@@ -40,7 +41,12 @@ class Bot():
             return ChatOpenAI(temperature=self.temperature)
         elif self.model_name == "llama":
             callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
-            return LlamaCpp(model_path=LLAMA_MODEL_PATH, n_ctx=2048, callback_manager=callback_manager, verbose=True, f16_kv=True)
+            return LlamaCpp(model_path=LLAMA_MODEL_PATH,
+                            n_ctx=2048,
+                            temperature=0,
+                            callback_manager=callback_manager,
+                            verbose=True,
+                            f16_kv=True)
         else: 
             exit(0)
 
@@ -60,13 +66,11 @@ class Bot():
         return DirectoryLoader(data_path)
 
     def load_index(self):
-        return FAISS.from_documents(
+        return Chroma.from_documents(
             self.loader.load_and_split(), self.embeddings
         )
 
     def get_response(self, prompt: str):
         db = self.index.similarity_search(prompt)
-        response = self.chain.run(input_documents=db, question=prompt, return_only_outputs=True)
+        response = self.chain.run(input_documents=db, question=prompt, return_only_outputs=False)
         return response
-
-    
