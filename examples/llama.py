@@ -1,8 +1,6 @@
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from langchain.chains import LLMChain
 from langchain.llms import LlamaCpp
-from langchain.prompts import PromptTemplate
 from brainaic.config import LLAMA_MODEL_PATH
 
 
@@ -19,7 +17,12 @@ llm = LlamaCpp(
 )
 
 prompt = """
-Question: A rap battle between Stephen Colbert and John Oliver
+<s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant.
+If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+Vasilis was born in 1997. The current year is 2023. How old is Vasilis? [/INST]
 """
 
 llm(prompt)

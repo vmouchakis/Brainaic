@@ -17,9 +17,10 @@ AI:
 
 
 LLAMA_TEMPLATE = """
-The following is a friendly conversation between a human and an AI. 
-The AI is talkative and provides lots of specific details from its context, and only its context. 
-If the AI does not know the answer to a question, it truthfully says it does not know.
+<s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant.
+If you don't know the answer to a question, please don't share false information.
+<</SYS>>
 
 Context:
 {context}
@@ -28,15 +29,14 @@ Conversation history:
 {history}
 
 Human: {question}
-AI:
+# AI: 
+[/INST]
 """
 
 
 def prompt(template: str = None):
     templ = LLAMA_TEMPLATE if template else TEMPLATE
-    PROMPT = PromptTemplate(
+    return PromptTemplate(
         template=templ,
         input_variables=["context", "history", "question"]
     )
-
-    return PROMPT
