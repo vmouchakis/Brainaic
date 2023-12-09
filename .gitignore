@@ -131,3 +131,6 @@ dmypy.json
 # Local directories
 models
 .idea
+
+# Local files
+.DS_Store
