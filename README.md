@@ -5,12 +5,12 @@
 </p>
 <p align="center">
     <small>Image generated with DALL-E.<br></small>
-    <em>BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your personal documents.</em>
+    <em>BrainAIc is an easy to use bot. In only a couple of lines of code, you can get answers based on your personal documents.</em>
 </p>
 
 
-You want to use OpenAi's pretrained models to query your files? Look no further.
-BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your personal documents.
+You want to use OpenAi's or Meta's pretrained models to query your files? Look no further.
+BrainAIc is an easy to use bot. In only a couple of lines of code, you can get answers based on your personal documents.
 
 *Created on Macbook M1 Pro*
 
@@ -67,7 +67,7 @@ python -m pytest tests -W ignore::DeprecationWarning
 ## TODO:
 - [ ] Add support for other models
     https://github.com/ChristopherKing42/llama/tree/patch-1 - LLAMA 7B ADDED
-- [ ] Add more tasks. Right now only querying over files is supported. Chat-based funcionality using Llama will be added
+- [ ] Add more tasks. Right now only querying over files is supported. Chat-based functionality using Llama will be added
 - [ ] Add memory
 - [x] Llama model is very slow. Make it faster. - Fixed, can be better though.
 
