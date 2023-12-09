@@ -65,16 +65,12 @@ python -m pytest tests -W ignore::DeprecationWarning
 - [ ] Add support for other models
     https://github.com/ChristopherKing42/llama/tree/patch-1 - LLAMA 7B ADDED
 - [ ] Add more tasks. Right now only querying over files is supported. Chat-based funcionality using Llama will be added
-- [ ] Llama model is very slow. Make it faster
-- [x] Add memory - FIX
-- [x] Add prompts - FIX
+- [ ] Add memory
+- [x] Llama model is very slow. Make it faster. - Fixed, can be better though.
 
 
 ## Problems
-- [ ] Llama model is useless when max_tokens are exceeded. (Works almost fine with the 13b-chat model)
-- [ ] Llama model is slow.
-- [x] Llama model produces nonsense and answers to questions I did not ask, maybe create an issue in langchain repo.
-
+- [ ] Make prompts better
 
 #### Usefull links
 https://github.com/hwchase17/langchain/issues/2784
