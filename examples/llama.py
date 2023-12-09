@@ -4,7 +4,6 @@ from langchain.llms import LlamaCpp
 from brainaic.config import LLAMA_MODEL_PATH
 
 
-
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
 llm = LlamaCpp(
@@ -22,7 +21,9 @@ You are a helpful, respectful and honest assistant.
 If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
 <</SYS>>
 
-Vasilis was born in 1997. The current year is 2023. How old is Vasilis? [/INST]
+Vasilis was born in 1997. The current year is 2023. 
+
+Question: How old is Vasilis? [/INST]
 """
 
 llm(prompt)

@@ -8,35 +8,23 @@ If you don't know the answer, just say that you don't know, don't try to make up
 Context:
 {context}
 
-Conversation history:
-{history}
-
 Human: {question}
 AI: 
 """
 
 
 LLAMA_TEMPLATE = """
-<s>[INST] <<SYS>>
-You are a helpful, respectful and honest assistant.
-If you don't know the answer to a question, please don't share false information.
-<</SYS>>
+Context: {context}
 
-Context:
-{context}
-
-Conversation history:
-{history}
-
-Human: {question}
-# AI: 
-[/INST]
+Based on Context provide me answer for following question.
+Question: {question}
+Answer:
 """
 
 
 def prompt(template: str = None):
-    templ = LLAMA_TEMPLATE if template else TEMPLATE
+    templ = LLAMA_TEMPLATE if template == "llama" else TEMPLATE
     return PromptTemplate(
         template=templ,
-        input_variables=["context", "history", "question"]
+        input_variables=["context", "question"]
     )

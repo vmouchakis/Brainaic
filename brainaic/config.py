@@ -1,1 +1,2 @@
-LLAMA_MODEL_PATH = "./models/llama/13b-chat-ggml-model-f32_q4_0.bin"
+DATA_PATH = "./data"
+LLAMA_MODEL_PATH = "./models/llama/7b-ggml-model-f32_q4_0.bin"
