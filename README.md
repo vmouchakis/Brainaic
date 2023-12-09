@@ -12,6 +12,8 @@
 You want to use OpenAi's pretrained models to query your files? Look no further.
 BrainAIc is an easy to use chatbot. In only a couple of lines of code, you can get answers based on your personal documents.
 
+*Created on Macbook M1 Pro*
+
 ### Models supported:
 - `gpt-3.5-turbo`
 - `llama2 7b`
@@ -32,6 +34,7 @@ os.environ["OPENAI_API_KEY"] = "..."
 - Make sure you are following [this video](https://www.youtube.com/watch?v=TsVZJbnnaSs) from [Alex Ziskind](https://github.com/alexziskind1) to install all necessary model files.
 - Or follow [this](https://medium.com/@auslei/llama-2-for-mac-m1-ed67bbd9a0c2) article.
 
+*Here we are using the 7b model, but following the instructions above you can use any Llama model*
 *Remember to move the models under the `models` directory in this project, see the `config.py` file.*
 
 ## Set up environment
@@ -70,6 +73,7 @@ python -m pytest tests -W ignore::DeprecationWarning
 
 
 ## Problems
+- [ ] **MAJOR PROBLEM: need to test it in more capable hardware**
 - [ ] Make prompts better
 
 #### Usefull links
