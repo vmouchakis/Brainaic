@@ -12,14 +12,18 @@ Human: {question}
 AI: 
 """
 
-
+# TODO: Add context in prompt templates
 LLAMA_TEMPLATE = """
-Context: {context}
-
-Based on Context provide me answer for following question.
-Question: {question}
-Answer:
+<<SYS>>
+{system_prompt}
+<</SYS>>
+[INST] 
+User: {prompt} 
+[/INST]\n
+Assistant:
 """
+
+PHI3_TEMPLATE = "<|user|>\n {prompt} <|end|>\n <|assistant|>"
 
 
 def prompt(template: str = None):
