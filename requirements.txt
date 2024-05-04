@@ -1,11 +1,7 @@
 langchain
 langchain_community
-llama_cpp_python
-openai
 unstructured
-tiktoken
 chromadb
 streamlit
-ollama
 gpt4all
 pytest
