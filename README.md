@@ -38,6 +38,8 @@ pip install -r requirements.txt
 
 Now you are ready to use the Bot.
 
+Make sure Ollama is running.
+
 Example:
 ```sh
 python -m brainaic.app --data_path './data' --model_type 'phi3' --prompt 'How old is Vasilis?'
