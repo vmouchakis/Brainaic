@@ -45,7 +45,7 @@ PHI3_TEMPLATE = "<|user|>\n {prompt} <|end|>\n <|assistant|>"
 
 GEMMA_TEMPLATE = """
 <start_of_turn>user
-{this is system} {this is prompt} 
+{this is system} {this is prompt}
 <end_of_turn>
 <start_of_turn>model
 <end_of_turn>
