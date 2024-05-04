@@ -15,7 +15,11 @@ class TestBotInit(unittest.TestCase):
         with open(self.sample_file_path, 'w') as f:
             f.write('This is a sample text file for testing.')
 
-        self.bot = Bot(data_path=self.temp_dir, model_name='phi3', temperature=0.0, verbose=False)
+        self.bot = Bot(data_path=self.temp_dir,
+                       model_name='phi3',
+                       temperature=0.0,
+                       persist_vectors=False,
+                       verbose=False)
 
     def test_initialization(self):
         # Test initialization of Bot instance

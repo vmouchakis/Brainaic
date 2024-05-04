@@ -1,6 +1,5 @@
 DATA_PATH = "./data"
 DB_PATH = "./vectorstores/db"
-LLAMA_MODEL_PATH = "./models/llama/7b-ggml-model-f32_q4_0.bin"
 
 MODELS = {
     'llama2': 'llama2:7b',
