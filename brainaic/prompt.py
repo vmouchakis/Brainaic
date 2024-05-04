@@ -14,7 +14,6 @@ DEFAULT_PROMPT = PromptTemplate.from_template(
     """
 )
 
-
 DEFAULT_SYSTEM_PROMPT = """
 You're are a helpful Assistant, and you only response to the prompt.
 Remember, maintain a natural tone. Be precise, concise, and casual.
