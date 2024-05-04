@@ -130,6 +130,7 @@ dmypy.json
 
 # Local directories
 models
+vectorstores
 .idea
 
 # Local files

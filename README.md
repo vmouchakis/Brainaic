@@ -9,46 +9,38 @@
 </p>
 
 
-You want to use OpenAi's or Meta's pretrained models to query your files? Look no further.
-BrainAIc is an easy to use bot. In only a couple of lines of code, you can get answers based on your personal documents.
-
+If you're looking to use Ollama's pretrained models to query your files, you're in luck.
+BrainAIc is a straightforward tool. With just a few lines of code, you can retrieve answers based on your personal documents.
 *Created on Macbook M1 Pro*
 
-### Models supported:
-- `gpt-3.5-turbo`
-- `llama2 7b`
+## Set up Ollama
 
-## Set up for `gpt` model
-- Save your OpenAI API Key locally:
-#### write in your terminal:
+### Install Ollama
+Follow [these instructions](https://ollama.com/download/)
+
+### Download Ollama models
 ```sh
-export OPENAI_API_KEY="..."
-```
-#### or inside your python script:
-```python
-import os
-os.environ["OPENAI_API_KEY"] = "..."
+ollama pull llama2:7b
 ```
 
-## Set up for `llama2` model
-- Make sure you are following [this video](https://www.youtube.com/watch?v=TsVZJbnnaSs) from [Alex Ziskind](https://github.com/alexziskind1) to install all necessary model files.
-- Or follow [this](https://medium.com/@auslei/llama-2-for-mac-m1-ed67bbd9a0c2) article.
-
-*Here we are using the 7b model, but following the instructions above you can use any Llama model*
-*Remember to move the models under the `models` directory in this project, see the `config.py` file.*
+### Serve ollama
+```sh
+ollama serve
+```
 
 ## Set up environment
 - Install dependencies inside your `virtual environment`:
 ```sh
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
-CMAKE_ARGS="-DLLAMA_METAL=on" FORCE_CMAKE=1 pip install llama-cpp-python
 ```
 
 Now you are ready to use the Bot.
 
 Example:
 ```sh
-python -m brainaic.app --data_path './data/samples' --model_type 'llama' --prompt 'How old is Vasilis?'
+python -m brainaic.app --data_path './data' --model_type 'phi3' --prompt 'How old is Vasilis?'
 ```
 Instead of `samples` you could choose your desired subfolder (each subfolder contains related data).
 
@@ -58,24 +50,7 @@ Instead of `samples` you could choose your desired subfolder (each subfolder con
 python -m streamlit run brainaic/web_app.py
 ```
 
-
 ## Run tests:
 ```sh
-python -m pytest tests -W ignore::DeprecationWarning
+python -m pytest tests
 ```
-
-## TODO:
-- [ ] Add support for other models
-    https://github.com/ChristopherKing42/llama/tree/patch-1 - LLAMA 7B ADDED
-- [ ] Add more tasks. Right now only querying over files is supported. Chat-based functionality using Llama will be added
-- [ ] Add memory
-- [ ] Create indexes. 
-- [x] Llama model is very slow. Make it faster. - Fixed, can be better though.
-
-
-## Problems
-- [ ] **MAJOR PROBLEM: need to test it in more capable hardware**
-- [ ] Make prompts better
-
-#### Usefull links
-https://github.com/hwchase17/langchain/issues/2784
