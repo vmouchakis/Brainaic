@@ -1,5 +1,3 @@
 Vasilis was born on 1997.
 He lives in Athens, Greece.
 He works as an AI Engineer.
-
-The current year is 2023.

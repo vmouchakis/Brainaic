@@ -7,8 +7,7 @@ warnings.filterwarnings("default", category=DeprecationWarning)
 class TestBotInit(unittest.TestCase):
     def test_bot_init(self):
         bot = Bot("./data")
-        self.assertIsNotNone(bot.model.model_name)
-        self.assertIsNotNone(bot.loader.load())
+        self.assertIsNotNone(bot.model_name)
 
 
 if __name__ == "__main__":

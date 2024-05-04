@@ -7,4 +7,5 @@ tiktoken
 chromadb
 streamlit
 ollama
+gpt4all
 pytest

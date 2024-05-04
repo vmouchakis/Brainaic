@@ -1,79 +1,38 @@
-from langchain.chat_models import ChatOpenAI
-from langchain.llms import LlamaCpp
-from langchain.document_loaders import DirectoryLoader
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.embeddings import LlamaCppEmbeddings
-from langchain.chains.question_answering import load_qa_chain
-from langchain.vectorstores import Chroma, FAISS
-from brainaic.config import LLAMA_MODEL_PATH
-from brainaic.prompt import prompt
-# https://plainenglish.io/blog/langchain-streamlit-llama-bringing-conversational-ai-to-your-local-machine
-from langchain.callbacks.manager import CallbackManager
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain_community.document_loaders import DirectoryLoader
+from langchain_community.embeddings import GPT4AllEmbeddings
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_community.vectorstores import Chroma
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from brainaic.prompt import DEFAULT_PROMPT
+from brainaic.llm import Llm
+from brainaic.config import DB_PATH
 
 
 class Bot:
-    def __init__(self,
-                 data_path: str,
-                 model_name: str = "gpt",
-                 temperature: int = 0):
+    def __init__(self, data_path: str, model_name: str = "llama2", temperature: float = 0.0, verbose: bool = False):
         self.model_name = model_name
-        self.temperature = temperature
-        self.prompt = self.load_prompt()
-        self.model = self.load_model()
-        self.embeddings = self.load_embeddings()
-        self.loader = self.load_loader(data_path=data_path)
-        self.index = self.load_index()
-        self.chain = load_qa_chain(llm=self.model,
-                                   chain_type="stuff",
-                                   prompt=self.prompt,
-                                   verbose=True,)
-
-    def load_model(self):
-        if self.model_name == "gpt":
-            # load gpt-3.5-turbo model
-            return ChatOpenAI(temperature=self.temperature)
-        elif self.model_name == "llama":
-            # load llama2-7b model
-            callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
-            return LlamaCpp(model_path=str(LLAMA_MODEL_PATH),
-                            n_ctx=4096,
-                            n_gpu_layers=512,
-                            n_batch=30,
-                            temperature=self.temperature,
-                            callback_manager=callback_manager,
-                            verbose=True,
-                            f16_kv=True)
-        else:
-            raise RuntimeError(f"""
-                Model '{self.model_name}' is not supported.
-                Supported models: 'gpt' (gpt-3.5-turbo), 'llama' (llama2-7b).
-            """)
-
-    def load_embeddings(self):
-        if self.model_name == "gpt":
-            return OpenAIEmbeddings()
-        elif self.model_name == "llama":
-            return LlamaCppEmbeddings(model_path=LLAMA_MODEL_PATH)
-        else:
-            raise RuntimeError(f"""
-                Model '{self.model_name}' is not supported.
-                Supported models: 'gpt' (gpt-3.5-turbo), 'llama' (llama2-7b).
-            """)
-
-    def load_prompt(self):
-        return prompt(template=self.model_name)
+        self.llm = Llm(model_name=model_name, temperature=temperature, verbose=verbose)
+        self.prompt = DEFAULT_PROMPT
+        self.embeddings = GPT4AllEmbeddings()
+        self.vectorstore = self.load_vector_db(data_path)
+        self.chain = self.load_chain()
 
     @staticmethod
-    def load_loader(data_path: str):
-        return DirectoryLoader(data_path)
+    def load_vector_db(data_path: str):
+        loader = DirectoryLoader(data_path)
+        documents = loader.load()
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
+        texts = text_splitter.split_documents(documents)
+        vectorstore = Chroma.from_documents(documents=texts, embedding=GPT4AllEmbeddings(), persist_directory=DB_PATH)
+        return vectorstore
 
-    def load_index(self):
-        return Chroma.from_documents(
-            self.loader.load_and_split(), self.embeddings
-        )
+    def load_chain(self):
+        combine_docs_chain = create_stuff_documents_chain(self.llm.llm,
+                                                          prompt=self.prompt)
+        retrieval_chain = create_retrieval_chain(self.vectorstore.as_retriever(), combine_docs_chain)
+        return retrieval_chain
 
     def get_response(self, question: str):
-        db = self.index.similarity_search(question)
-        response = self.chain.run(input_documents=db, question=question, return_only_outputs=True)
-        return response
+        resp = self.chain.invoke({'input': question})
+        return resp
