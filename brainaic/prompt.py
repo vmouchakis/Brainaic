@@ -1,8 +1,22 @@
 from langchain.prompts import PromptTemplate
 
 
+DEFAULT_PROMPT = PromptTemplate.from_template(
+    """
+    Use the following pieces of context to answer the question at the end. If you 
+    don't know the answer, just say that you don't know, don't try to make up an 
+    answer.
+
+    {context}
+
+    Question: {input}
+    Helpful Answer:
+    """
+)
+
+
 DEFAULT_SYSTEM_PROMPT = """
-You're are a helpful Assistant, and you only response to the "Assistant"
+You're are a helpful Assistant, and you only response to the prompt.
 Remember, maintain a natural tone. Be precise, concise, and casual.
 """
 
@@ -61,11 +75,3 @@ def prompt(model_name: str) -> str:
         return templates.get(model_name)
     except KeyError:
         raise RuntimeError(f"Model {model_name} not recognized")
-
-
-# def prompt(template: str = None):
-#     templ = LLAMA_TEMPLATE if template == "llama" else TEMPLATE
-#     return PromptTemplate(
-#         template=templ,
-#         input_variables=["context", "question"]
-#     )
